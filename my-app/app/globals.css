@@ -1,0 +1,32 @@
+/* globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+  body {
+    @apply font-primary bg-primary text-white leading-loose;
+  }
+  .h1 {
+    @apply text-[32px] sm:text-[40px] md:text-[48px] lg:text-[56px] xl:text-[64px] leading-[1.1] font-semibold;
+  }
+
+  .h2 {
+    @apply text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] leading-[1.1] font-semibold;
+  }
+
+  .h3 {
+    @apply text-[18px] sm:text-[20px] md:text-[22px] lg:text-[24px] xl:text-[26px] leading-[1.1] font-semibold;
+  }
+
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.font-meduim {
+  font-weight: 500;
+}
+
