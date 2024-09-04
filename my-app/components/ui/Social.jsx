@@ -1,22 +1,21 @@
 import Link from "next/link";
-import { FaGithub, FaInstagram, FaWhatsapp, FaLinkedin } from 'react-icons/fa'
-
+import { FaGithub, FaWhatsapp, FaLinkedin } from 'react-icons/fa'
 
 const socials = [
-  { icon: <FaGithub/>, path: "https://github.com/abdosql" },
-  { icon: <FaLinkedin/>, path: "https://www.linkedin.com/in/saqqal-abdelaziz/" },
-  { icon: <FaWhatsapp/>, path: "https://wa.me/qr/R35WIQPHUALXO1" },
+  { icon: <FaGithub/>, path: "https://github.com/abdosql/" },
+  { icon: <FaLinkedin/>, path: "https://www.linkedin.com/in/saqqal-abdelaziz" },
+  { icon: <FaWhatsapp/>, path: "https://wa.me/212708083110" },
 ]
 
 const Social = ({containerStyles, iconStyles}) => {
   return (
     <div className={containerStyles}>
       {socials.map((item, index)=> {
-          return (
-            <Link key={index} href={item.path} className={iconStyles}>
+        return (
+          <Link key={index} href={item.path} target="_blank" rel="noopener noreferrer" className={iconStyles}>
             {item.icon}
-            </Link>
-          )
+          </Link>
+        )
       })}
     </div>
   )
