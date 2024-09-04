@@ -21,7 +21,7 @@ const Home = () => {
           <div className="flex-col flex xl:flex-row items-center justify-between xl:pt-6 xl:pb-24">
           <div className="text-center xl:text-left order-2 xl:order-1">
               <span className="text-xl">Software Engineer</span>
-              <h1 className="h1 mb-6">Hello I'm  <br /> <span className="text-accent">Abdelaziz Saqqal</span></h1>
+              <h1 className="h1 mb-6">Hello I&apos;m  <br /> <span className="text-accent">Abdelaziz Saqqal</span></h1>
               <p className="max-w-[500px] pb-8 text-white/80">
               Fifth-year computer engineering student at EHEI Oujda, passionate about web development with Symfony. Experienced in tutoring math and physics, and full stack development. Certified in Symfony, Doctrine, and API Platform.
               </p>
