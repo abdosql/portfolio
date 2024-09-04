@@ -44,7 +44,7 @@ const Resume = () => {
                 <p className="text-sm text-gray-400">2022 - 2025</p>
               </div>
               <div className="bg-[#1e1e1e] p-6 rounded-lg">
-                <h3 className="h3 mb-2">Bachelor's Degree in Physics</h3>
+                <h3 className="h3 mb-2">Bachelor&apos;s Degree in Physics</h3>
                 <p className="text-sm text-gray-400 mb-2">Bachelor&apos;s Degree in Computer Engineering | EHEI Oujda | 2019 - 2024</p>
                 <p className="text-sm text-gray-400">Mohammed First University Faculty of Sciences, Oujda</p>
                 <p className="text-sm text-gray-400">2018 - 2022</p>
