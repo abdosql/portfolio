@@ -1,44 +1,59 @@
 'use client';
 
-import { Button } from "@/components/ui/button"
-import { Photo } from "@/components/ui/Photo"
-import { FiDownload } from 'react-icons/fi'
+import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Photo } from "@/components/ui/Photo";
+import { FiDownload } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 const Home = () => {
-  const handleDownloadCV = () => {
-    const cvUrl = '/files/Abdelaziz_Saqqal_CV.pdf';
-    const link = document.createElement('a');
-    link.href = cvUrl;
-    link.download = 'Abdelaziz_Saqqal_CV.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 1400); // Match this duration with the stairs effect duration
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!showContent) {
+    return null; // Return null or a loading indicator while content is not ready
+  }
 
   return (
-    <section className="h-full bg-white dark:bg-[#121212]">
-        <div className="container mx-auto">
-          <div className="flex-col flex xl:flex-row items-center justify-between xl:pt-6 xl:pb-24">
-          <div className="text-center xl:text-left order-2 xl:order-1">
-              <span className="text-xl text-gray-900 dark:text-[#e5e7eb]">Software Engineer</span>
-              <h1 className="h1 mb-6">Hello I&apos;m  <br /> <span className="text-accent">Abdelaziz Saqqal</span></h1>
-              <p className="max-w-[500px] pb-8 text-gray-700 dark:text-[#e5e7eb]/80">
-              Fifth-year computer engineering student at EHEI Oujda, passionate about web development with Symfony. Experienced in tutoring math and physics, and full stack development. Certified in Symfony, Doctrine, and API Platform.
-              </p>
-              <div className="flex flex-col xl:flex-row items-center gap-8">
-                <Button variant="outline" size="lg" className="flex items-center gap-2 uppercase text-gray-900 dark:text-[#e5e7eb]" onClick={handleDownloadCV}>
-                  <span>Download CV</span>
-                  <FiDownload className="text-xl"></FiDownload>
-                </Button>
-              </div>
-          </div>
-          <div className="order-1 xl:order-2 mb-8 xl:mb-0">
-            <Photo/>
-          </div>
-          </div>
+    <section className="h-full bg-white dark:bg-[#121212] py-12">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="w-full lg:w-1/2"
+          >
+            <h1 className="h1 mb-4 text-gray-900 dark:text-[#e5e7eb]">
+              Hi, I'm <span className="text-[rgb(255,59,63)]">Abdelaziz Saqqal</span>
+            </h1>
+            <p className="mb-6 text-gray-900 dark:text-[#e5e7eb]">
+              A passionate software engineer specializing in web development with Symfony and full stack technologies.
+            </p>
+            <Button className="bg-[rgb(255,59,63)] text-white hover:bg-[rgb(200,47,50)] transition-colors duration-300">
+              <FiDownload className="mr-2" />
+              Download CV
+            </Button>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="w-full lg:w-1/2"
+          >
+            <Photo />
+          </motion.div>
         </div>
+      </div>
     </section>
-  )
+  );
 }
 
-export default Home
+export default Home;
