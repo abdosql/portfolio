@@ -9,12 +9,13 @@ const Services = () => {
   ]
 
   return (
-    <section className="h-full bg-white dark:bg-[#121212] text-gray-900 dark:text-[#e5e7eb]">
-      <div className="container mx-auto py-12">
+    <section className="relative">
+      <div className="absolute inset-0 bg-white/90 dark:bg-[#121212]/90 z-0"></div>
+      <div className="relative z-10 container mx-auto py-12 px-4">
         <h1 className="h1 mb-8 text-center xl:text-left">My Services</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map(service => (
-            <div key={service.id} className="bg-gray-100 dark:bg-[#1e1e1e] p-6 rounded-lg">
+            <div key={service.id} className="bg-gray-100/80 dark:bg-[#1e1e1e]/80 p-6 rounded-lg">
               <h3 className="h3 mb-4 text-[rgb(255,59,63)]">{service.title}</h3>
               <p>{service.description}</p>
             </div>

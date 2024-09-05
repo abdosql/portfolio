@@ -7,6 +7,7 @@ import PageTransition from "@/components/PageTransition";
 import StairTrasition from "@/components/StairTrasition";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from '@/components/ThemeProvider';
+import BackgroundAnimation from '@/components/BackgroundAnimation';
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"], 
@@ -22,14 +23,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${jetbrainsMono.variable}`}>
+      <body className={`${jetbrainsMono.variable} relative min-h-screen`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          <StairTrasition />
-          <PageTransition>
-            {children}
-          </PageTransition>
-          <Footer />
+          <BackgroundAnimation />
+          <div className="relative z-10">
+            <Header />
+            <StairTrasition />
+            <PageTransition>
+              {children}
+            </PageTransition>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

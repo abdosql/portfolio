@@ -59,10 +59,10 @@ const Contact = () => {
   };
 
   return (
-    <section className="h-full bg-white dark:bg-[#121212] py-12">
-      {showContent && (
-        <div className="container mx-auto px-4">
-          <h1 className="h1 mb-12 text-center text-gray-900 dark:text-[#e5e7eb]">Get in Touch</h1>
+    <section className="relative">
+      <div className="absolute inset-0 bg-white/90 dark:bg-[#121212]/90 z-0"></div>
+      <div className="relative z-10 container mx-auto py-12 px-4">
+        {showContent && (
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -175,8 +175,8 @@ const Contact = () => {
               )}
             </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 }

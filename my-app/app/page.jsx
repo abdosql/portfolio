@@ -12,17 +12,17 @@ const Home = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 1400); // Match this duration with the stairs effect duration
+    }, 1400);
 
     return () => clearTimeout(timer);
   }, []);
 
   if (!showContent) {
-    return null; // Return null or a loading indicator while content is not ready
+    return null;
   }
 
   return (
-    <section className="h-full bg-white dark:bg-[#121212] py-12">
+    <section className="py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <motion.div
