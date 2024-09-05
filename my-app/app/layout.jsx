@@ -6,8 +6,7 @@ import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import StairTrasition from "@/components/StairTrasition";
 import Footer from "@/components/Footer";
-import ThemeToggle from "@/components/ThemeToggle";
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"], 
