@@ -16,17 +16,17 @@ const Home = () => {
   };
 
   return (
-    <section className="h-full">
+    <section className="h-full bg-white dark:bg-[#121212]">
         <div className="container mx-auto">
           <div className="flex-col flex xl:flex-row items-center justify-between xl:pt-6 xl:pb-24">
           <div className="text-center xl:text-left order-2 xl:order-1">
-              <span className="text-xl">Software Engineer</span>
+              <span className="text-xl text-gray-900 dark:text-[#e5e7eb]">Software Engineer</span>
               <h1 className="h1 mb-6">Hello I&apos;m  <br /> <span className="text-accent">Abdelaziz Saqqal</span></h1>
-              <p className="max-w-[500px] pb-8 text-white/80">
+              <p className="max-w-[500px] pb-8 text-gray-700 dark:text-[#e5e7eb]/80">
               Fifth-year computer engineering student at EHEI Oujda, passionate about web development with Symfony. Experienced in tutoring math and physics, and full stack development. Certified in Symfony, Doctrine, and API Platform.
               </p>
               <div className="flex flex-col xl:flex-row items-center gap-8">
-                <Button variant="outline" size="lg" className="flex items-center gap-2 uppercase" onClick={handleDownloadCV}>
+                <Button variant="outline" size="lg" className="flex items-center gap-2 uppercase text-gray-900 dark:text-[#e5e7eb]" onClick={handleDownloadCV}>
                   <span>Download CV</span>
                   <FiDownload className="text-xl"></FiDownload>
                 </Button>

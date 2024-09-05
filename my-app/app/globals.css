@@ -39,3 +39,10 @@
   animation: fadeInOut 3s ease-in-out;
 }
 
+@layer base {
+  body {
+    @apply bg-white text-gray-900 dark:bg-[#121212] dark:text-[#e5e7eb] transition-colors duration-300;
+  }
+}
+
+

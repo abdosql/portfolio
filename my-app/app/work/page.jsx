@@ -48,16 +48,16 @@ const Work = () => {
   ]
 
   return (
-    <section className="h-full bg-[#121212]">
+    <section className="h-full bg-white dark:bg-[#121212]">
       <div className="container mx-auto py-12">
-        <h1 className="h1 mb-8 text-center xl:text-left text-[#e5e7eb]">My Work</h1>
+        <h1 className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">My Work</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map(project => (
             <ProjectCard key={project.id} {...project} />
           ))}
         </div>
         <div className="mt-12 text-center xl:text-left">
-          <Button className="bg-[rgb(255,59,63)] text-[#e5e7eb] hover:bg-[rgb(200,47,50)] transition-colors duration-300">
+          <Button className="bg-[rgb(255,59,63)] text-white hover:bg-[rgb(200,47,50)] transition-colors duration-300">
             View All Projects
           </Button>
         </div>

@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import PageTransition from "@/components/PageTransition";
 import StairTrasition from "@/components/StairTrasition";
 import Footer from "@/components/Footer";
+import ThemeToggle from "@/components/ThemeToggle";
+import { ThemeProvider } from 'next-themes';
 
 const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"], 
@@ -20,14 +22,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={jetbrainsMono.variable}>
-        <Header />
-        <StairTrasition />
-        <PageTransition>
-          {children}
-        </PageTransition>
-        <Footer />
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${jetbrainsMono.variable}`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
+          <StairTrasition />
+          <PageTransition>
+            {children}
+          </PageTransition>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
