@@ -1,12 +1,23 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ProjectCard from '@/components/ProjectCard';
 import ProjectModal from '@/components/ProjectModal';
 import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion';
+import BackgroundAnimation from '@/components/BackgroundAnimation';
 
 const Work = () => {
+  const [showContent, setShowContent] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 1400); // Match this duration with the stairs effect duration (1s delay + 0.4s duration)
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const projects = [
     { 
@@ -15,9 +26,12 @@ const Work = () => {
       date: "Jul 2024 - Aug 2024",
       association: "SQLI",
       description: "Développement d'un système de gestion d'entretiens innovant pour SQLI, intégrant une architecture logicielle avancée et une intégration de l'IA. Construit avec Symfony 7 et PHP 8.2, ce système utilise l'architecture CQRS, plusieurs modèles de conception et une interface d'administration personnalisée pour une solution robuste et efficace.",
-      image: "/path/to/interview-system-image.jpg", 
+      media: [
+        { type: 'image', src: "/path/to/interview-system-image1.jpg" },
+        { type: 'image', src: "/path/to/interview-system-image2.jpg" },
+        // Add more media items as needed, including videos
+      ],
       link: '#',
-      images: ["/path/to/interview-system-image1.jpg", "/path/to/interview-system-image2.jpg"],
       features: [
         "Gestion intelligente des utilisateurs basée sur les rôles",
         "Planification avancée des entretiens avec intégration de calendrier",
@@ -44,16 +58,19 @@ const Work = () => {
         "Interface EasyAdmin hautement personnalisée",
         "Conteneurisation avec Docker pour un développement et un déploiement cohérents"
       ],
-      skills: "Symfony 7 Framework · CQRS Architecture · Event-Driven Architecture · MySQL · MongoDB · ORM/ODM · Doctrine (PHP) · API Development · API Platform 3 · RESTful API design · Message Queue Systems · RabbitMQ · Symfony Messenger · EasyAdmin 4 · Twig templating · JavaScript · Bootstrap · Large Language Models (LLM) · AI-assisted evaluation systems · Webpack Encore · Docker · Microservices Architecture · Asynchronous Programming · Real-time Data Synchronization · File Upload and Management · Calendar Integration · Performance Optimization · Scalable System Design · Software Testing · Version Control · Technical Documentation"
+      skills: "Symfony 7 Framework · CQRS Architecture · Event-Driven Architecture · MySQL · MongoDB · ORM/ODM · Doctrine (PHP) · API Development · API Platform 3 · RESTful API design · Message Queue Systems · RabbitMQ · Symfony Messenger · EasyAdmin 4 · Twig templating · JavaScript · Bootstrap · Large Language Models (LLM) · AI-assisted evaluation systems · Webpack Encore · Docker · Microservices Architecture · Asynchronous Programming · Real-time Data Synchronization · File Upload and Management · Calendar Integration · Performance Optimization · Scalable System Design · Software Testing · Version Control · Technical Documentation",
     },
     { 
       id: 2, 
       title: "Système de Recommandation de Produits Personnalisés", 
       date: "Jun 2024 - Jun 2024",
       description: "J'ai développé un système sophistiqué de recommandation de produits personnalisés en utilisant une pile hybride de Symfony pour le backend et Flask pour le moteur de recommandation. Le cœur du système est alimenté par la similarité cosinus, une technique puissante pour le filtrage collaboratif.",
-      image: "/path/to/recommendation-system-image.jpg", 
+      media: [
+        { type: 'image', src: "/path/to/recommendation-system-image1.jpg" },
+        { type: 'image', src: "/path/to/recommendation-system-image2.jpg" },
+        // Add more media items as needed, including videos
+      ],
       link: '#',
-      images: ["/path/to/recommendation-system-image1.jpg", "/path/to/recommendation-system-image2.jpg"],
       features: [
         "Backend: Construit avec Symfony, gérant les interactions des utilisateurs, le stockage des données et la logique métier.",
         "Moteur de Recommandation: Implémenté en Flask, utilisant la similarité cosinus pour analyser les données d'interaction et générer des recommandations personnalisées.",
@@ -70,13 +87,12 @@ const Work = () => {
       date: "Dec 2023 - May 2024",
       association: "EHEI Oujda",
       description: "Automatiser et améliorer les flux de travail des étudiants, des enseignants et de l'administration en générant automatiquement des groupes et des emplois du temps, et en suivant la présence des étudiants à l'aide de cartes RFID.",
-      image: "/path/to/faceguard-image.jpg", 
-      link: '#',
       media: [
         { type: 'image', src: "/path/to/faceguard-image1.jpg" },
         { type: 'image', src: "/path/to/faceguard-image2.jpg" },
         { type: 'video', src: "/path/to/faceguard-demo-video.mp4" }
       ],
+      link: '#',
       features: [
         "Développer l'interface utilisateur et le système backend.",
         "Créer un algorithme pour la génération automatique de groupes et d'emplois du temps.",
@@ -94,9 +110,14 @@ const Work = () => {
       date: "Dec 2023 - Jan 2024",
       association: "EHEI Oujda",
       description: "Développement d'une application web sophistiquée utilisant Symfony et Python, améliorée par le modèle BERT (Bidirectional Encoder Representations from Transformers) pour l'encodage de mots, offrant une fonctionnalité de recherche avancée.",
-      image: "/path/to/search-engine-image.jpg", 
+      media: [
+        { type: 'image', src: "/path/to/search-engine-image1.jpg" },
+        { type: 'image', src: "/path/to/search-engine-image2.jpg" },
+        { type: 'image', src: "/path/to/Parametre.png" },
+        { type: 'image', src: "/path/to/Homepage.png" },
+        // Add more media items as needed, including videos
+      ],
       link: '#',
-      images: ["/path/to/search-engine-image1.jpg", "/path/to/search-engine-image2.jpg", "/path/to/Parametre.png", "/path/to/Homepage.png"],
       features: [
         "Intégration de BERT pour l'Encodage de Mots : Utilisation du modèle BERT pour fournir des résultats de recherche précis et contextuellement pertinents.",
         "Objet Processus Symfony : Gestion de la transmission des données du formulaire de recherche au script backend Python.",
@@ -110,9 +131,12 @@ const Work = () => {
       title: "Création d'un Framework MVC Robuste pour PHP (ANH Framework)", 
       date: "Aug 2023 - Sep 2023",
       description: "J'ai développé un cadre Model-View-Controller (MVC) personnalisé visant à simplifier le développement d'applications PHP tout en priorisant l'efficacité et la sécurité.",
-      image: "/path/to/anh-framework-image.jpg", 
+      media: [
+        { type: 'image', src: "/path/to/anh-framework-image1.jpg" },
+        { type: 'image', src: "/path/to/anh-framework-image2.jpg" },
+        // Add more media items as needed, including videos
+      ],
       link: '#',
-      images: ["/path/to/anh-framework-image1.jpg", "/path/to/anh-framework-image2.jpg"],
       features: [
         "Fonctionnalités essentielles du cadre MVC : Modèles, Vues et Contrôleurs, englobant la manipulation des données, le rendu et la gestion des requêtes.",
         "Moteur de Templating : Assuré la séparation des préoccupations pour une meilleure organisation du code et une réutilisabilité.",
@@ -127,9 +151,12 @@ const Work = () => {
       id: 6, 
       title: "Système de gestion de restaurant (Projet fin de modules)", 
       description: "Le projet comprend un site web de restaurant, une application console de gestion des commandes, et une application de bureau pour la gestion des opérations. Chaque application vise à répondre à des besoins spécifiques du restaurant, offrant ainsi une solution complète et intégrée.", 
-      image: "/path/to/restaurant-system-image.jpg", 
+      media: [
+        { type: 'image', src: "/path/to/restaurant-system-image1.jpg" },
+        { type: 'image', src: "/path/to/restaurant-system-image2.jpg" },
+        // Add more media items as needed, including videos
+      ],
       link: '#',
-      images: ["/path/to/restaurant-system-image1.jpg", "/path/to/restaurant-system-image2.jpg"],
       components: [
         "Site web de restaurant",
         "Application console de gestion des commandes",
@@ -146,15 +173,46 @@ const Work = () => {
     setSelectedProject(null);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
-    <section className="h-full bg-white dark:bg-[#121212]">
-      <div className="container mx-auto py-12">
-        <h1 className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">My Work</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map(project => (
-            <ProjectCard key={project.id} {...project} onViewDetails={() => openModal(project)} />
-          ))}
-        </div>
+    <section className="relative min-h-screen">
+      <BackgroundAnimation className="fixed inset-0 z-0" />
+      <div className="relative z-10 container mx-auto py-12">
+        {showContent && (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.h1 variants={itemVariants} className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">My Work</motion.h1>
+            <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects.map(project => (
+                <motion.div key={project.id} variants={itemVariants}>
+                  <ProjectCard {...project} onViewDetails={() => openModal(project)} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        )}
       </div>
       {selectedProject && (
         <ProjectModal project={selectedProject} onClose={closeModal} />

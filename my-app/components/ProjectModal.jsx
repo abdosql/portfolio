@@ -28,7 +28,12 @@ const ProjectModal = ({ project, onClose }) => {
     const currentMedia = project.media[currentMediaIndex];
     if (currentMedia.type === 'video') {
       return (
-        <video
+        <motion.video
+          key={currentMediaIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
           src={currentMedia.src}
           controls
           className="w-full h-full object-contain rounded-lg shadow-md"
@@ -36,7 +41,12 @@ const ProjectModal = ({ project, onClose }) => {
       );
     } else {
       return (
-        <img
+        <motion.img
+          key={currentMediaIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
           src={currentMedia.src}
           alt={`${project.title} - Media ${currentMediaIndex + 1}`}
           className="w-full h-full object-cover rounded-lg shadow-md"
@@ -65,21 +75,41 @@ const ProjectModal = ({ project, onClose }) => {
             <FiX size={24} />
           </button>
           <h2 className="text-3xl font-bold mb-2 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)] border-b pb-2">{project.title}</h2>
+          
+          {project.media && project.media.length > 0 && (
+            <motion.div 
+              className="relative mb-6 aspect-video"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+            >
+              <AnimatePresence mode="wait">
+                {renderMedia()}
+              </AnimatePresence>
+              <motion.button 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={prevMedia} 
+                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 dark:bg-[#1e1e1e] dark:bg-opacity-50 rounded-full p-2 transition-colors duration-300 hover:bg-opacity-75"
+              >
+                <FiChevronLeft size={24} className="text-gray-800 dark:text-gray-200" />
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={nextMedia} 
+                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 dark:bg-[#1e1e1e] dark:bg-opacity-50 rounded-full p-2 transition-colors duration-300 hover:bg-opacity-75"
+              >
+                <FiChevronRight size={24} className="text-gray-800 dark:text-gray-200" />
+              </motion.button>
+            </motion.div>
+          )}
+
           <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
             {project.date && <span className="mr-4">{project.date}</span>}
             {project.association && <span>Associated with {project.association}</span>}
           </div>
-          {project.media && project.media.length > 0 && (
-            <div className="relative mb-6 aspect-video">
-              {renderMedia()}
-              <button onClick={prevMedia} className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 dark:bg-[#1e1e1e] dark:bg-opacity-50 rounded-full p-2 transition-colors duration-300 hover:bg-opacity-75">
-                <FiChevronLeft size={24} className="text-gray-800 dark:text-gray-200" />
-              </button>
-              <button onClick={nextMedia} className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 dark:bg-[#1e1e1e] dark:bg-opacity-50 rounded-full p-2 transition-colors duration-300 hover:bg-opacity-75">
-                <FiChevronRight size={24} className="text-gray-800 dark:text-gray-200" />
-              </button>
-            </div>
-          )}
+          
           <div className="text-gray-700 dark:text-gray-300 space-y-6">
             <div>
               <SectionTitle icon={FiInfo} title="Description" />

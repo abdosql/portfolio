@@ -5,13 +5,14 @@ import { Button } from "@/components/ui/button";
 import emailjs from '@emailjs/browser';
 import { FaUser, FaEnvelope, FaCommentAlt, FaPaperPlane, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import BackgroundAnimation from '@/components/BackgroundAnimation';
 
 const Contact = () => {
+  const [showContent, setShowContent] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(null);
-  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,22 +55,42 @@ const Contact = () => {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
   const inputVariants = {
     focus: { scale: 1.02, transition: { duration: 0.2 } },
   };
 
   return (
-    <section className="relative">
-      <div className="absolute inset-0 bg-white/90 dark:bg-[#121212]/90 z-0"></div>
+    <section className="relative min-h-screen overflow-hidden">
+      <BackgroundAnimation className="z-0" />
       <div className="relative z-10 container mx-auto py-12 px-4">
         {showContent && (
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-12">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="w-full lg:w-1/2"
-            >
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col lg:flex-row justify-between items-start gap-12"
+          >
+            <motion.div variants={itemVariants} className="w-full lg:w-1/2">
               <h2 className="h2 mb-6 text-gray-900 dark:text-[#e5e7eb]">Contact Information</h2>
               <div className="space-y-4">
                 <p className="flex items-center text-gray-900 dark:text-[#e5e7eb]">
@@ -86,12 +107,7 @@ const Contact = () => {
                 </p>
               </div>
             </motion.div>
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="w-full lg:w-1/2"
-            >
+            <motion.div variants={itemVariants} className="w-full lg:w-1/2">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="relative">
                   <label htmlFor="name" className="block mb-2 text-gray-900 dark:text-[#e5e7eb]">Name</label>
@@ -174,7 +190,7 @@ const Contact = () => {
                 </motion.div>
               )}
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 
-const BackgroundAnimation = () => {
+const BackgroundAnimation = ({ className = '' }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -82,8 +82,8 @@ const BackgroundAnimation = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute top-0 left-0 w-full h-full -z-10"
-      style={{ minHeight: '100vh' }}
+      className={`absolute top-0 left-0 w-full h-full ${className}`}
+      style={{ minHeight: '100%', pointerEvents: 'none' }}
     />
   );
 };
