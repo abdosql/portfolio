@@ -22,15 +22,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${jetbrainsMono.variable}`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Header />
-          <StairTrasition />
-          <PageTransition>
-            {children}
-          </PageTransition>
-          <Footer />
+    <html lang="en">
+      <body>
+        <ThemeProvider attribute="class">
+          {children}
         </ThemeProvider>
       </body>
     </html>
