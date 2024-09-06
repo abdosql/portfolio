@@ -8,6 +8,7 @@ import { motion } from 'framer-motion';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
 import { useTranslation } from "@/translations";
 import AnimatedText from '@/components/AnimatedText';
+import Script from 'next/script';
 
 const Home = () => {
   const [showContent, setShowContent] = useState(false);
@@ -112,6 +113,25 @@ const Home = () => {
           </div>
         )}
       </div>
+      <Script
+        id="schema-org"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Abdelaziz Saqqal",
+            "url": "https://seqqal.vercel.app",
+            "jobTitle": "Software Engineer",
+            "description": "Fifth-year computer engineering student at EHEI Oujda, passionate about web development with Symfony. Experienced in tutoring math and physics, and full stack development.",
+            "image": "https://seqqal.vercel.app/assets/images/3.png",
+            "sameAs": [
+              "https://github.com/abdosql/",
+              "https://www.linkedin.com/in/saqqal-abdelaziz"
+            ]
+          })
+        }}
+      />
     </motion.section>
   );
 }
