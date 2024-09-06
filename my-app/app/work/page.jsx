@@ -29,8 +29,8 @@ const projects = [
     association: "SQLI",
     description: 'sqliProjectDescription',
     media: [
-      { type: 'image', src: "/path/to/interview-system-image1.jpg" },
-      { type: 'image', src: "/path/to/interview-system-image2.jpg" },
+      { type: 'image', src: "/files/projectCards/one.jpeg" },
+      { type: 'video', src: "/files/projectCards/LinkedinProject.mp4" },
     ],
     link: '#',
     features: 'sqliProjectFeatures',
@@ -45,7 +45,7 @@ const projects = [
     date: 'recommendationSystemDate',
     description: 'recommendationSystemDescription',
     media: [
-      { type: 'image', src: "/path/to/recommendation-system-image1.jpg" },
+      { type: 'image', src: "/files/projectCards/two.jpg" },
       { type: 'image', src: "/path/to/recommendation-system-image2.jpg" },
     ],
     link: '#',
@@ -59,7 +59,7 @@ const projects = [
     association: "EHEI Oujda",
     description: 'faceguardProjectDescription',
     media: [
-      { type: 'image', src: "/path/to/faceguard-image1.jpg" },
+      { type: 'image', src: "/files/projectCards/three.jpeg" },
       { type: 'image', src: "/path/to/faceguard-image2.jpg" },
       { type: 'video', src: "/path/to/faceguard-demo-video.mp4" }
     ],
@@ -77,7 +77,7 @@ const projects = [
     association: "EHEI Oujda",
     description: 'searchEngineProjectDescription',
     media: [
-      { type: 'image', src: "/path/to/search-engine-image1.jpg" },
+      { type: 'image', src: "/files/projectCards/foor.jpeg" },
       { type: 'image', src: "/path/to/search-engine-image2.jpg" },
       { type: 'image', src: "/path/to/Parametre.png" },
       { type: 'image', src: "/path/to/Homepage.png" },
@@ -93,8 +93,7 @@ const projects = [
     date: 'anhFrameworkProjectDate',
     description: 'anhFrameworkProjectDescription',
     media: [
-      { type: 'image', src: "/path/to/anh-framework-image1.jpg" },
-      { type: 'image', src: "/path/to/anh-framework-image2.jpg" },
+      { type: 'image', src: "/files/projectCards/five.jpeg" },
     ],
     link: '#',
     features: 'anhFrameworkProjectFeatures',
@@ -106,8 +105,17 @@ const projects = [
     title: 'restaurantSystemProjectTitle', 
     description: 'restaurantSystemProjectDescription',
     media: [
-      { type: 'image', src: "/path/to/restaurant-system-image1.jpg" },
-      { type: 'image', src: "/path/to/restaurant-system-image2.jpg" },
+      { type: 'image', src: "/files/projectCards/six.jpeg" },
+      { type: 'image', src: "/files/projectCards/seven.jpeg" },
+      { type: 'image', src: "/files/projectCards/eight.jpeg" },
+      { type: 'image', src: "/files/projectCards/nine.jpeg" },
+      { type: 'image', src: "/files/projectCards/teen.jpeg" },
+      { type: 'image', src: "/files/projectCards/elvn.jpeg" },
+      { type: 'image', src: "/files/projectCards/1719357974919.jpeg" },
+      { type: 'image', src: "/files/projectCards/1719358276461.jpeg" },
+      { type: 'image', src: "/files/projectCards/1719360404885.jpeg" },
+      { type: 'image', src: "/files/projectCards/1719362083296.jpeg" },
+      { type: 'image', src: "/files/projectCards/1719368984856.jpeg" },
     ],
     link: '#',
     components: 'restaurantSystemProjectComponents',
@@ -117,7 +125,7 @@ const projects = [
 const Work = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const { t } = useTranslation();
-  const showContent = useDelayedRender(500);
+  const showContent = useDelayedRender(1500); // Increase delay to match stairs effect duration
   const [InView, setInView] = useState(null);
 
   useEffect(() => {
@@ -160,6 +168,9 @@ const Work = () => {
   const ProjectItem = useCallback(({ project }) => {
     if (!InView) return null;
 
+    // Get the first image from the media array
+    const firstImage = project.media && project.media.length > 0 ? project.media[0].src : null;
+
     return (
       <InView triggerOnce rootMargin="200px 0px" threshold={0.1}>
         {({ inView, ref }) => (
@@ -170,6 +181,7 @@ const Work = () => {
                 titleKey={project.title}
                 dateKey={project.date}
                 descriptionKey={project.description}
+                image={firstImage} // Pass the first image here
                 onViewDetails={() => openModal(project)} 
               />
             )}
@@ -187,27 +199,28 @@ const Work = () => {
   ), [ProjectItem]);
 
   if (!InView) {
-    return <div>Loading...</div>; // Or any loading indicator
+    return null; // Return null instead of a loading indicator
   }
 
   return (
     <section className="relative min-h-screen">
-      {showContent && <BackgroundAnimation className="fixed inset-0 z-0" />}
       <div className="relative z-10 container mx-auto py-12">
         <AnimatePresence>
           {showContent && (
             <motion.div
               key="content"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
             >
               <motion.h1 variants={itemVariants} className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">
                 <AnimatedText textKey='myWork' />
               </motion.h1>
               <motion.div 
                 variants={containerVariants} 
+                initial="hidden"
+                animate="visible"
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                 layout
               >

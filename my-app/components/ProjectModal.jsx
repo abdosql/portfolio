@@ -3,16 +3,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiChevronLeft, FiChevronRight, FiInfo, FiList, FiCode, FiLayers, FiStar, FiAward } from 'react-icons/fi';
 import { useTranslation } from "@/translations";
 
-const SectionTitle = ({ icon: Icon, title }) => (
-  <h3 className="flex items-center font-semibold text-lg mb-3 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)]">
-    <Icon className="mr-2" />
-    {t(title)}
-  </h3>
-);
-
 const ProjectModal = ({ project, onClose }) => {
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const { t } = useTranslation();
+
+  const SectionTitle = ({ icon: Icon, title }) => (
+    <h3 className="flex items-center font-semibold text-lg mb-3 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)]">
+      <Icon className="mr-2" />
+      {t(title)}
+    </h3>
+  );
 
   const nextMedia = useCallback(() => {
     if (project.media && project.media.length > 0) {
