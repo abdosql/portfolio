@@ -118,11 +118,11 @@ const Work = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const { t } = useTranslation();
   const showContent = useDelayedRender(500);
-  const [useInView, setUseInView] = useState(null);
+  const [InView, setInView] = useState(null);
 
   useEffect(() => {
     import('react-intersection-observer').then((mod) => {
-      setUseInView(() => mod.useInView);
+      setInView(() => mod.InView);
     });
   }, []);
 
@@ -158,28 +158,26 @@ const Work = () => {
 
   // Optimize ProjectItem component
   const ProjectItem = useCallback(({ project }) => {
-    if (!useInView) return null;
-
-    const [ref, inView] = useInView({
-      triggerOnce: true,
-      rootMargin: '200px 0px',
-      threshold: 0.1,
-    });
+    if (!InView) return null;
 
     return (
-      <motion.div ref={ref} variants={itemVariants} layout>
-        {inView && (
-          <ProjectCard 
-            {...project} 
-            titleKey={project.title}
-            dateKey={project.date}
-            descriptionKey={project.description}
-            onViewDetails={() => openModal(project)} 
-          />
+      <InView triggerOnce rootMargin="200px 0px" threshold={0.1}>
+        {({ inView, ref }) => (
+          <motion.div ref={ref} variants={itemVariants} layout>
+            {inView && (
+              <ProjectCard 
+                {...project} 
+                titleKey={project.title}
+                dateKey={project.date}
+                descriptionKey={project.description}
+                onViewDetails={() => openModal(project)} 
+              />
+            )}
+          </motion.div>
         )}
-      </motion.div>
+      </InView>
     );
-  }, [itemVariants, openModal, useInView]);
+  }, [InView, itemVariants, openModal]);
 
   // Memoize renderProjects
   const renderProjects = useMemo(() => (
@@ -188,7 +186,7 @@ const Work = () => {
     ))
   ), [ProjectItem]);
 
-  if (!useInView) {
+  if (!InView) {
     return <div>Loading...</div>; // Or any loading indicator
   }
 

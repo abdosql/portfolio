@@ -3,6 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiChevronLeft, FiChevronRight, FiInfo, FiList, FiCode, FiLayers, FiStar, FiAward } from 'react-icons/fi';
 import { useTranslation } from "@/translations";
 
+const SectionTitle = ({ icon: Icon, title }) => (
+  <h3 className="flex items-center font-semibold text-lg mb-3 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)]">
+    <Icon className="mr-2" />
+    {t(title)}
+  </h3>
+);
+
 const ProjectModal = ({ project, onClose }) => {
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const { t } = useTranslation();
@@ -18,13 +25,6 @@ const ProjectModal = ({ project, onClose }) => {
       setCurrentMediaIndex((prevIndex) => (prevIndex - 1 + project.media.length) % project.media.length);
     }
   }, [project.media]);
-
-  const SectionTitle = useMemo(() => ({ icon: Icon, title }) => (
-    <h3 className="flex items-center font-semibold text-lg mb-3 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)]">
-      <Icon className="mr-2" />
-      {t(title)}
-    </h3>
-  ), [t]);
 
   const renderMedia = useCallback(() => {
     const currentMedia = project.media[currentMediaIndex];
@@ -158,7 +158,9 @@ const ProjectModal = ({ project, onClose }) => {
         )}
       </div>
     </>
-  ), [project, t, SectionTitle, renderMedia, nextMedia, prevMedia, onClose]);
+  ), [project, t, renderMedia, nextMedia, prevMedia, onClose]);
+
+  ProjectModal.displayName = 'ProjectModal';
 
   return (
     <AnimatePresence>
