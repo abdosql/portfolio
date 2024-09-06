@@ -8,10 +8,15 @@ import AnimatedText from '@/components/AnimatedText';
 import { useDelayedRender } from '@/hooks/useDelayedRender';
 
 // Lazy load components
+const LoadingCard = () => (
+  <div className="h-64 bg-gray-200 animate-pulse rounded-lg"></div>
+);
+
 const ProjectCard = dynamic(() => import('@/components/ProjectCard'), { 
-  loading: () => <div className="h-64 bg-gray-200 animate-pulse rounded-lg"></div>,
+  loading: () => <LoadingCard />,
   ssr: false 
 });
+
 const ProjectModal = dynamic(() => import('@/components/ProjectModal'), { ssr: false });
 const BackgroundAnimation = dynamic(() => import('@/components/BackgroundAnimation'), { ssr: false });
 
@@ -121,6 +126,7 @@ const Work = () => {
     });
   }, []);
 
+  // Optimize useCallback dependencies
   const openModal = useCallback((project) => {
     setSelectedProject(project);
   }, []);
@@ -129,6 +135,7 @@ const Work = () => {
     setSelectedProject(null);
   }, []);
 
+  // Memoize variants
   const containerVariants = useMemo(() => ({
     hidden: { opacity: 0 },
     visible: { 
@@ -149,31 +156,32 @@ const Work = () => {
     }
   }), []);
 
+  // Optimize ProjectItem component
   const ProjectItem = useCallback(({ project }) => {
     if (!useInView) return null;
 
     const [ref, inView] = useInView({
       triggerOnce: true,
       rootMargin: '200px 0px',
+      threshold: 0.1,
     });
 
     return (
       <motion.div ref={ref} variants={itemVariants} layout>
         {inView && (
-          <Suspense fallback={<div className="h-64 bg-gray-200 animate-pulse rounded-lg"></div>}>
-            <ProjectCard 
-              {...project} 
-              titleKey={project.title}
-              dateKey={project.date}
-              descriptionKey={project.description}
-              onViewDetails={() => openModal(project)} 
-            />
-          </Suspense>
+          <ProjectCard 
+            {...project} 
+            titleKey={project.title}
+            dateKey={project.date}
+            descriptionKey={project.description}
+            onViewDetails={() => openModal(project)} 
+          />
         )}
       </motion.div>
     );
   }, [itemVariants, openModal, useInView]);
 
+  // Memoize renderProjects
   const renderProjects = useMemo(() => (
     projects.map(project => (
       <ProjectItem key={project.id} project={project} />
