@@ -3,8 +3,9 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { useTranslation } from "@/translations";
 import AnimatedText from '@/components/AnimatedText';
+import { memo } from 'react';
 
-const ProjectCard = ({ titleKey, dateKey, descriptionKey, image, link, onViewDetails }) => {
+const ProjectCard = memo(({ titleKey, dateKey, descriptionKey, image, link, onViewDetails }) => {
   const { t } = useTranslation();
 
   return (
@@ -15,9 +16,9 @@ const ProjectCard = ({ titleKey, dateKey, descriptionKey, image, link, onViewDet
           <h3 className="text-xl font-semibold mb-2 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)] transition-colors duration-300">
             <AnimatedText textKey={titleKey} />
           </h3>
-          <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300 line-clamp-3">
+          <div className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300 line-clamp-3">
             <AnimatedText textKey={descriptionKey} />
-          </p>
+          </div>
         </div>
         <div className="flex justify-between items-center mt-4">
           <Button 
@@ -38,6 +39,6 @@ const ProjectCard = ({ titleKey, dateKey, descriptionKey, image, link, onViewDet
       </div>
     </div>
   );
-};
+});
 
 export default ProjectCard

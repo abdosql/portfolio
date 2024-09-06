@@ -1,15 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-export const useDelayedRender = (delay = 1400) => {
+export const useDelayedRender = (delay = 500) => {
   const [showContent, setShowContent] = useState(false);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowContent(true);
-    }, delay);
-
-    return () => clearTimeout(timer);
+  const startTimer = useCallback(() => {
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        setTimeout(() => {
+          setShowContent(true);
+        }, delay);
+      });
+    } else {
+      setTimeout(() => {
+        setShowContent(true);
+      }, delay);
+    }
   }, [delay]);
+
+  useEffect(() => {
+    startTimer();
+  }, [startTimer]);
 
   return showContent;
 };
