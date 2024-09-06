@@ -7,11 +7,12 @@ import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
 import { useTranslation } from "@/translations";
+import AnimatedText from '@/components/AnimatedText';
 
 const Work = () => {
   const [showContent, setShowContent] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const t = useTranslation();
+  const { t } = useTranslation();  // Correctly destructure t from useTranslation
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,58 +25,58 @@ const Work = () => {
   const projects = [
     { 
       id: 1, 
-      title: t('sqliProjectTitle'), 
-      date: t('sqliProjectDate'),
+      title: 'sqliProjectTitle', 
+      date: 'sqliProjectDate',
       association: "SQLI",
-      description: t('sqliProjectDescription'),
+      description: 'sqliProjectDescription',
       media: [
         { type: 'image', src: "/path/to/interview-system-image1.jpg" },
         { type: 'image', src: "/path/to/interview-system-image2.jpg" },
       ],
       link: '#',
-      features: t('sqliProjectFeatures').split('|'),
-      technologies: t('sqliProjectTechnologies').split('|'),
-      architecture: t('sqliProjectArchitecture').split('|'),
-      highlights: t('sqliProjectHighlights').split('|'),
-      skills: t('sqliProjectSkills'),
+      features: 'sqliProjectFeatures',
+      technologies: 'sqliProjectTechnologies',
+      architecture: 'sqliProjectArchitecture',
+      highlights: 'sqliProjectHighlights',
+      skills: 'sqliProjectSkills',
     },
     { 
       id: 2, 
-      title: t('recommendationSystemTitle'), 
-      date: t('recommendationSystemDate'),
-      description: t('recommendationSystemDescription'),
+      title: 'recommendationSystemTitle', 
+      date: 'recommendationSystemDate',
+      description: 'recommendationSystemDescription',
       media: [
         { type: 'image', src: "/path/to/recommendation-system-image1.jpg" },
         { type: 'image', src: "/path/to/recommendation-system-image2.jpg" },
       ],
       link: '#',
-      features: t('recommendationSystemFeatures').split('|'),
-      skills: t('recommendationSystemSkills'),
+      features: 'recommendationSystemFeatures',
+      skills: 'recommendationSystemSkills',
     },
     { 
       id: 3, 
-      title: t('faceguardProjectTitle'), 
-      date: t('faceguardProjectDate'),
+      title: 'faceguardProjectTitle', 
+      date: 'faceguardProjectDate',
       association: "EHEI Oujda",
-      description: t('faceguardProjectDescription'),
+      description: 'faceguardProjectDescription',
       media: [
         { type: 'image', src: "/path/to/faceguard-image1.jpg" },
         { type: 'image', src: "/path/to/faceguard-image2.jpg" },
         { type: 'video', src: "/path/to/faceguard-demo-video.mp4" }
       ],
       link: '#',
-      features: t('faceguardProjectFeatures').split('|'),
-      technologies: t('faceguardProjectTechnologies').split('|'),
-      results: t('faceguardProjectResults'),
-      futurePlans: t('faceguardProjectFuturePlans'),
-      skills: t('faceguardProjectSkills'),
+      features: 'faceguardProjectFeatures',
+      technologies: 'faceguardProjectTechnologies',
+      results: 'faceguardProjectResults',
+      futurePlans: 'faceguardProjectFuturePlans',
+      skills: 'faceguardProjectSkills',
     },
     { 
       id: 4, 
-      title: t('searchEngineProjectTitle'), 
-      date: t('searchEngineProjectDate'),
+      title: 'searchEngineProjectTitle', 
+      date: 'searchEngineProjectDate',
       association: "EHEI Oujda",
-      description: t('searchEngineProjectDescription'),
+      description: 'searchEngineProjectDescription',
       media: [
         { type: 'image', src: "/path/to/search-engine-image1.jpg" },
         { type: 'image', src: "/path/to/search-engine-image2.jpg" },
@@ -83,34 +84,34 @@ const Work = () => {
         { type: 'image', src: "/path/to/Homepage.png" },
       ],
       link: '#',
-      features: t('searchEngineProjectFeatures').split('|'),
-      technologies: t('searchEngineProjectTechnologies').split('|'),
-      skills: t('searchEngineProjectSkills'),
+      features: 'searchEngineProjectFeatures',
+      technologies: 'searchEngineProjectTechnologies',
+      skills: 'searchEngineProjectSkills',
     },
     { 
       id: 5, 
-      title: t('anhFrameworkProjectTitle'), 
-      date: t('anhFrameworkProjectDate'),
-      description: t('anhFrameworkProjectDescription'),
+      title: 'anhFrameworkProjectTitle', 
+      date: 'anhFrameworkProjectDate',
+      description: 'anhFrameworkProjectDescription',
       media: [
         { type: 'image', src: "/path/to/anh-framework-image1.jpg" },
         { type: 'image', src: "/path/to/anh-framework-image2.jpg" },
       ],
       link: '#',
-      features: t('anhFrameworkProjectFeatures').split('|'),
-      impact: t('anhFrameworkProjectImpact'),
-      skills: t('anhFrameworkProjectSkills'),
+      features: 'anhFrameworkProjectFeatures',
+      impact: 'anhFrameworkProjectImpact',
+      skills: 'anhFrameworkProjectSkills',
     },
     { 
       id: 6, 
-      title: t('restaurantSystemProjectTitle'), 
-      description: t('restaurantSystemProjectDescription'),
+      title: 'restaurantSystemProjectTitle', 
+      description: 'restaurantSystemProjectDescription',
       media: [
         { type: 'image', src: "/path/to/restaurant-system-image1.jpg" },
         { type: 'image', src: "/path/to/restaurant-system-image2.jpg" },
       ],
       link: '#',
-      components: t('restaurantSystemProjectComponents').split('|'),
+      components: 'restaurantSystemProjectComponents',
     },
   ];
 
@@ -152,11 +153,19 @@ const Work = () => {
             initial="hidden"
             animate="visible"
           >
-            <motion.h1 variants={itemVariants} className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">{t('myWork')}</motion.h1>
+            <motion.h1 variants={itemVariants} className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">
+              <AnimatedText textKey='myWork' />
+            </motion.h1>
             <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {projects.map(project => (
                 <motion.div key={project.id} variants={itemVariants}>
-                  <ProjectCard {...project} onViewDetails={() => openModal(project)} />
+                  <ProjectCard 
+                    {...project} 
+                    title={t(project.title)}
+                    date={t(project.date)}
+                    description={t(project.description)}
+                    onViewDetails={() => openModal(project)} 
+                  />
                 </motion.div>
               ))}
             </motion.div>
@@ -164,7 +173,24 @@ const Work = () => {
         )}
       </div>
       {selectedProject && (
-        <ProjectModal project={selectedProject} onClose={closeModal} />
+        <ProjectModal 
+          project={{
+            ...selectedProject,
+            title: t(selectedProject.title),
+            date: t(selectedProject.date),
+            description: t(selectedProject.description),
+            features: t(selectedProject.features)?.split('|') ?? [],
+            technologies: t(selectedProject.technologies)?.split('|') ?? [],
+            architecture: t(selectedProject.architecture)?.split('|') ?? [],
+            highlights: t(selectedProject.highlights)?.split('|') ?? [],
+            skills: t(selectedProject.skills) ?? '',
+            components: t(selectedProject.components)?.split('|') ?? [],
+            results: t(selectedProject.results) ?? '',
+            futurePlans: t(selectedProject.futurePlans) ?? '',
+            impact: t(selectedProject.impact) ?? '',
+          }} 
+          onClose={closeModal} 
+        />
       )}
     </section>
   );

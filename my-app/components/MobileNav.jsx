@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { CiMenuFries } from 'react-icons/ci';
 import { Button } from "./ui/button";
 import { useTranslation } from "@/translations";
+import AnimatedText from './AnimatedText';
 
 const links = [
   { name: 'home', path: '/' },
@@ -19,7 +20,7 @@ const links = [
 const MobileNav = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const t = useTranslation();
+  const { t } = useTranslation();
 
   const handleLinkClick = () => {
     setOpen(false);
@@ -48,12 +49,14 @@ const MobileNav = () => {
                 className={`${isActive ? "text-accent border-b-2 border-accent" : "text-gray-900 dark:text-[#e5e7eb]"} capitalize font-medium hover:text-accent transition-all`}
                 onClick={handleLinkClick}
               >
-                {t(link.name)}
+                <AnimatedText textKey={link.name} />
               </Link>
             );
           })}
           <Link href="/contact" onClick={handleLinkClick}>
-            <Button className="bg-[rgb(255,59,63)] text-white hover:bg-[rgb(200,47,50)] transition-colors duration-300">{t('hireMe')}</Button>
+            <Button className="bg-[rgb(255,59,63)] text-white hover:bg-[rgb(200,47,50)] transition-colors duration-300">
+              <AnimatedText textKey='hireMe' />
+            </Button>
           </Link>
         </nav>
       </SheetContent>

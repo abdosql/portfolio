@@ -7,6 +7,7 @@ import { FaUser, FaEnvelope, FaCommentAlt, FaPaperPlane, FaPhone, FaMapMarkerAlt
 import { motion } from 'framer-motion';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
 import { useTranslation } from "@/translations";
+import AnimatedText from '@/components/AnimatedText';
 
 const Contact = () => {
   const [showContent, setShowContent] = useState(false);
@@ -14,7 +15,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState(null);
-  const t = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -52,7 +53,7 @@ const Contact = () => {
       setTimeout(() => setIsSubmitted(false), 3000);
     } catch (error) {
       console.error('Error sending email:', error);
-      setError(t('messageSendError'));
+      setError('messageSendError');
       setIsSubmitting(false);
     }
   };
@@ -93,7 +94,9 @@ const Contact = () => {
             className="flex flex-col lg:flex-row justify-between items-start gap-12"
           >
             <motion.div variants={itemVariants} className="w-full lg:w-1/2">
-              <h2 className="h2 mb-6 text-gray-900 dark:text-[#e5e7eb]">{t('contactInformation')}</h2>
+              <h2 className="h2 mb-6 text-gray-900 dark:text-[#e5e7eb]">
+                <AnimatedText textKey='contactInformation' />
+              </h2>
               <div className="space-y-4">
                 <p className="flex items-center text-gray-900 dark:text-[#e5e7eb]">
                   <FaPhone className="mr-3 text-[rgb(255,59,63)]" />
@@ -105,14 +108,16 @@ const Contact = () => {
                 </p>
                 <p className="flex items-center text-gray-900 dark:text-[#e5e7eb]">
                   <FaMapMarkerAlt className="mr-3 text-[rgb(255,59,63)]" />
-                  {t('location')}
+                  <AnimatedText textKey='location' />
                 </p>
               </div>
             </motion.div>
             <motion.div variants={itemVariants} className="w-full lg:w-1/2">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="relative">
-                  <label htmlFor="name" className="block mb-2 text-gray-900 dark:text-[#e5e7eb]">{t('name')}</label>
+                  <label htmlFor="name" className="block mb-2 text-gray-900 dark:text-[#e5e7eb]">
+                    <AnimatedText textKey='name' />
+                  </label>
                   <FaUser className="absolute top-[3.5rem] left-3 text-gray-900 dark:text-[#e5e7eb]" />
                   <motion.input
                     type="text"
@@ -127,7 +132,9 @@ const Contact = () => {
                   />
                 </div>
                 <div className="relative">
-                  <label htmlFor="email" className="block mb-2 text-gray-900 dark:text-[#e5e7eb]">{t('email')}</label>
+                  <label htmlFor="email" className="block mb-2 text-gray-900 dark:text-[#e5e7eb]">
+                    <AnimatedText textKey='email' />
+                  </label>
                   <FaEnvelope className="absolute top-[3.5rem] left-3 text-gray-900 dark:text-[#e5e7eb]" />
                   <motion.input
                     type="email"
@@ -142,7 +149,9 @@ const Contact = () => {
                   />
                 </div>
                 <div className="relative">
-                  <label htmlFor="message" className="block mb-2 text-gray-900 dark:text-[#e5e7eb]">{t('message')}</label>
+                  <label htmlFor="message" className="block mb-2 text-gray-900 dark:text-[#e5e7eb]">
+                    <AnimatedText textKey='message' />
+                  </label>
                   <FaCommentAlt className="absolute top-[3.5rem] left-3 text-gray-900 dark:text-[#e5e7eb]" />
                   <motion.textarea
                     id="message"
@@ -163,10 +172,12 @@ const Contact = () => {
                     isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                 >
-                  {isSubmitting ? t('sending') : (
+                  {isSubmitting ? (
+                    <AnimatedText textKey='sending' />
+                  ) : (
                     <>
                       <FaPaperPlane className="mr-2" />
-                      {t('sendMessage')}
+                      <AnimatedText textKey='sendMessage' />
                     </>
                   )}
                 </Button>
@@ -178,7 +189,7 @@ const Contact = () => {
                   exit={{ opacity: 0, y: -20 }}
                   className="mt-4 text-green-500 text-center"
                 >
-                  {t('messageSentSuccess')}
+                  <AnimatedText textKey='messageSentSuccess' />
                 </motion.div>
               )}
               {error && (
@@ -188,7 +199,7 @@ const Contact = () => {
                   exit={{ opacity: 0, y: -20 }}
                   className="mt-4 text-red-500 text-center"
                 >
-                  {error}
+                  <AnimatedText textKey={error} />
                 </motion.div>
               )}
             </motion.div>

@@ -7,15 +7,16 @@ import { FiDownload } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
 import { useTranslation } from "@/translations";
+import AnimatedText from '@/components/AnimatedText';
 
 const Home = () => {
   const [showContent, setShowContent] = useState(false);
-  const t = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 1400); // Match this duration with the stairs effect duration (1s delay + 0.4s duration)
+    }, 1400);
 
     return () => clearTimeout(timer);
   }, []);
@@ -31,7 +32,13 @@ const Home = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <motion.section
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="relative min-h-screen overflow-hidden"
+    >
       <BackgroundAnimation className="z-0" />
       <div className="relative z-10 container mx-auto py-12">
         {showContent && (
@@ -42,14 +49,28 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1 }}
             >
-              <span className="text-xl text-gray-900 dark:text-[#e5e7eb]">{t('softwareEngineer')}</span>
-              <h1 className="h1 mb-6">{t('greeting')} <br /> <span className="text-accent">Abdelaziz Saqqal</span></h1>
-              <p className="max-w-[500px] pb-8 text-gray-700 dark:text-[#e5e7eb]/80">
-                {t('homeDescription')}
-              </p>
+              <AnimatedText 
+                textKey='softwareEngineer'
+                className="text-xl text-gray-900 dark:text-[#e5e7eb]"
+                bottomPadding={2}
+              />
+              <h1 className="h1">
+                <AnimatedText textKey='greeting' />
+              </h1>
+              <h1 className="h1 mb-6">
+                <AnimatedText 
+                  textKey="Abdelaziz Saqqal" 
+                  className="text-accent"
+                />
+              </h1>
+              <AnimatedText 
+                textKey='homeDescription'
+                className="max-w-[500px] text-gray-700 dark:text-[#e5e7eb]/80"
+                bottomPadding={50}
+              />
               <div className="flex flex-col xl:flex-row items-center gap-8">
                 <Button variant="outline" size="lg" className="flex items-center gap-2 uppercase text-gray-900 dark:text-[#e5e7eb]" onClick={handleDownloadCV}>
-                  <span>{t('downloadCV')}</span>
+                  <AnimatedText textKey='downloadCV' />
                   <FiDownload className="text-xl" />
                 </Button>
               </div>
@@ -91,7 +112,7 @@ const Home = () => {
           </div>
         )}
       </div>
-    </section>
+    </motion.section>
   );
 }
 
