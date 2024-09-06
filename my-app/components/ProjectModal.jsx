@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiChevronLeft, FiChevronRight, FiInfo, FiList, FiCode, FiLayers, FiStar, FiAward } from 'react-icons/fi';
+import { useTranslation } from "@/translations";
 
 const ProjectModal = ({ project, onClose }) => {
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const { t } = useTranslation();
 
   const nextMedia = () => {
     if (project.media && project.media.length > 0) {
@@ -20,7 +22,7 @@ const ProjectModal = ({ project, onClose }) => {
   const SectionTitle = ({ icon: Icon, title }) => (
     <h3 className="flex items-center font-semibold text-lg mb-3 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)]">
       <Icon className="mr-2" />
-      {title}
+      {t(title)}
     </h3>
   );
 
@@ -48,7 +50,7 @@ const ProjectModal = ({ project, onClose }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
           src={currentMedia.src}
-          alt={`${project.title} - Media ${currentMediaIndex + 1}`}
+          alt={`${t(project.titleKey)} - Media ${currentMediaIndex + 1}`}
           className="w-full h-full object-cover rounded-lg shadow-md"
         />
       );
@@ -74,7 +76,9 @@ const ProjectModal = ({ project, onClose }) => {
           <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">
             <FiX size={24} />
           </button>
-          <h2 className="text-3xl font-bold mb-2 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)] border-b pb-2">{project.title}</h2>
+          <h2 className="text-3xl font-bold mb-2 text-[rgb(255,59,63)] dark:text-[rgb(255,59,63)] border-b pb-2">
+            {t(project.titleKey)}
+          </h2>
           
           {project.media && project.media.length > 0 && (
             <motion.div 
@@ -106,67 +110,64 @@ const ProjectModal = ({ project, onClose }) => {
           )}
 
           <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
-            {project.date && <span className="mr-4">{project.date}</span>}
-            {project.association && <span>Associated with {project.association}</span>}
+            {project.dateKey && <span className="mr-4">{t(project.dateKey)}</span>}
+            {project.associationKey && <span>{t(project.associationKey)}</span>}
           </div>
           
           <div className="text-gray-700 dark:text-gray-300 space-y-6">
             <div>
               <SectionTitle icon={FiInfo} title="Description" />
-              <p>{project.description}</p>
+              <p>{t(project.descriptionKey)}</p>
             </div>
             
-            {project.features && (
+            {project.featuresKey && (
               <div>
                 <SectionTitle icon={FiList} title="Key Features" />
                 <ul className="list-disc list-inside">
-                  {project.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
+                  {t(project.featuresKey).split('|').map((feature, index) => (
+                    <li key={index}>{feature.trim()}</li>
                   ))}
                 </ul>
               </div>
             )}
             
-            {project.technologies && (
+            {project.technologiesKey && (
               <div>
                 <SectionTitle icon={FiCode} title="Technologies" />
                 <ul className="grid grid-cols-2 gap-2">
-                  {project.technologies.map((tech, index) => (
-                    <li key={index} className="flex items-center">
-                      <span className="w-2 h-2 bg-[rgb(255,59,63)] rounded-full mr-2"></span>
-                      {tech}
-                    </li>
+                  {t(project.technologiesKey).split('|').map((tech, index) => (
+                    <li key={index}>{tech.trim()}</li>
                   ))}
                 </ul>
               </div>
             )}
             
-            {project.architecture && (
+            {project.architectureKey && (
               <div>
                 <SectionTitle icon={FiLayers} title="Architecture & Design Patterns" />
                 <ul className="list-disc list-inside">
-                  {project.architecture.map((item, index) => (
-                    <li key={index}>{item}</li>
+                  {t(project.architectureKey).split('|').map((item, index) => (
+                    <li key={index}>{item.trim()}</li>
                   ))}
                 </ul>
               </div>
             )}
             
-            {project.highlights && (
+            {project.highlightsKey && (
               <div>
                 <SectionTitle icon={FiStar} title="Additional Highlights" />
                 <ul className="list-disc list-inside">
-                  {project.highlights.map((highlight, index) => (
-                    <li key={index}>{highlight}</li>
+                  {t(project.highlightsKey).split('|').map((highlight, index) => (
+                    <li key={index}>{highlight.trim()}</li>
                   ))}
                 </ul>
               </div>
             )}
             
-            {project.skills && (
+            {project.skillsKey && (
               <div>
                 <SectionTitle icon={FiAward} title="Skills" />
-                <p className="italic">{project.skills}</p>
+                <p className="italic">{t(project.skillsKey)}</p>
               </div>
             )}
           </div>

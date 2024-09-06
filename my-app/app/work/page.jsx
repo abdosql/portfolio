@@ -10,17 +10,8 @@ import { useTranslation } from "@/translations";
 import AnimatedText from '@/components/AnimatedText';
 
 const Work = () => {
-  const [showContent, setShowContent] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const { t } = useTranslation();  // Correctly destructure t from useTranslation
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowContent(true);
-    }, 1400);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { t } = useTranslation();
 
   const projects = [
     { 
@@ -147,47 +138,45 @@ const Work = () => {
     <section className="relative min-h-screen">
       <BackgroundAnimation className="fixed inset-0 z-0" />
       <div className="relative z-10 container mx-auto py-12">
-        {showContent && (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.h1 variants={itemVariants} className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">
-              <AnimatedText textKey='myWork' />
-            </motion.h1>
-            <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.map(project => (
-                <motion.div key={project.id} variants={itemVariants}>
-                  <ProjectCard 
-                    {...project} 
-                    title={t(project.title)}
-                    date={t(project.date)}
-                    description={t(project.description)}
-                    onViewDetails={() => openModal(project)} 
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.h1 variants={itemVariants} className="h1 mb-8 text-center xl:text-left text-gray-900 dark:text-[#e5e7eb]">
+            <AnimatedText textKey='myWork' />
+          </motion.h1>
+          <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {projects.map(project => (
+              <motion.div key={project.id} variants={itemVariants}>
+                <ProjectCard 
+                  {...project} 
+                  titleKey={project.title}
+                  dateKey={project.date}
+                  descriptionKey={project.description}
+                  onViewDetails={() => openModal(project)} 
+                />
+              </motion.div>
+            ))}
           </motion.div>
-        )}
+        </motion.div>
       </div>
       {selectedProject && (
         <ProjectModal 
           project={{
             ...selectedProject,
-            title: t(selectedProject.title),
-            date: t(selectedProject.date),
-            description: t(selectedProject.description),
-            features: t(selectedProject.features)?.split('|') ?? [],
-            technologies: t(selectedProject.technologies)?.split('|') ?? [],
-            architecture: t(selectedProject.architecture)?.split('|') ?? [],
-            highlights: t(selectedProject.highlights)?.split('|') ?? [],
-            skills: t(selectedProject.skills) ?? '',
-            components: t(selectedProject.components)?.split('|') ?? [],
-            results: t(selectedProject.results) ?? '',
-            futurePlans: t(selectedProject.futurePlans) ?? '',
-            impact: t(selectedProject.impact) ?? '',
+            titleKey: selectedProject.title,
+            dateKey: selectedProject.date,
+            descriptionKey: selectedProject.description,
+            featuresKey: selectedProject.features,
+            technologiesKey: selectedProject.technologies,
+            architectureKey: selectedProject.architecture,
+            highlightsKey: selectedProject.highlights,
+            skillsKey: selectedProject.skills,
+            componentsKey: selectedProject.components,
+            resultsKey: selectedProject.results,
+            futurePlansKey: selectedProject.futurePlans,
+            impactKey: selectedProject.impact,
           }} 
           onClose={closeModal} 
         />
