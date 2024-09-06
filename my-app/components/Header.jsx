@@ -4,6 +4,7 @@ import Link from "next/link";
 import Nav from "./Nav";
 import MobileNav from "./MobileNav";
 import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
 
 const Header = () => {
   return (
@@ -18,6 +19,7 @@ const Header = () => {
           <Nav />
         </div>
         <div className="flex items-center gap-4">
+          <LanguageToggle />
           <ThemeToggle />
           <div className="xl:hidden">
             <MobileNav />

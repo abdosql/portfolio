@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 import { FiDownload } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import BackgroundAnimation from '@/components/BackgroundAnimation';
+import { useTranslation } from "@/translations";
 
 const Home = () => {
   const [showContent, setShowContent] = useState(false);
+  const t = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,14 +42,14 @@ const Home = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1 }}
             >
-              <span className="text-xl text-gray-900 dark:text-[#e5e7eb]">Software Engineer</span>
-              <h1 className="h1 mb-6">Hello I&apos;m  <br /> <span className="text-accent">Abdelaziz Saqqal</span></h1>
+              <span className="text-xl text-gray-900 dark:text-[#e5e7eb]">{t('softwareEngineer')}</span>
+              <h1 className="h1 mb-6">{t('greeting')} <br /> <span className="text-accent">Abdelaziz Saqqal</span></h1>
               <p className="max-w-[500px] pb-8 text-gray-700 dark:text-[#e5e7eb]/80">
-                Fifth-year computer engineering student at EHEI Oujda, passionate about web development with Symfony. Experienced in tutoring math and physics, and full stack development. Certified in Symfony, Doctrine, and API Platform.
+                {t('homeDescription')}
               </p>
               <div className="flex flex-col xl:flex-row items-center gap-8">
                 <Button variant="outline" size="lg" className="flex items-center gap-2 uppercase text-gray-900 dark:text-[#e5e7eb]" onClick={handleDownloadCV}>
-                  <span>Download CV</span>
+                  <span>{t('downloadCV')}</span>
                   <FiDownload className="text-xl" />
                 </Button>
               </div>

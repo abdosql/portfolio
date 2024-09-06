@@ -6,11 +6,12 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { CiMenuFries } from 'react-icons/ci';
 import { Button } from "./ui/button";
+import { useTranslation } from "@/translations";
 
 const links = [
   { name: 'home', path: '/' },
   { name: 'services', path: '/services' },
-  { name: 'resumer', path: '/resumer' },
+  { name: 'resume', path: '/resumer' },
   { name: 'work', path: '/work' },
   { name: 'contact', path: '/contact' },
 ];
@@ -18,6 +19,7 @@ const links = [
 const MobileNav = () => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const t = useTranslation();
 
   const handleLinkClick = () => {
     setOpen(false);
@@ -46,12 +48,12 @@ const MobileNav = () => {
                 className={`${isActive ? "text-accent border-b-2 border-accent" : "text-gray-900 dark:text-[#e5e7eb]"} capitalize font-medium hover:text-accent transition-all`}
                 onClick={handleLinkClick}
               >
-                {link.name}
+                {t(link.name)}
               </Link>
             );
           })}
           <Link href="/contact" onClick={handleLinkClick}>
-            <Button className="bg-[rgb(255,59,63)] text-white hover:bg-[rgb(200,47,50)] transition-colors duration-300">Hire me</Button>
+            <Button className="bg-[rgb(255,59,63)] text-white hover:bg-[rgb(200,47,50)] transition-colors duration-300">{t('hireMe')}</Button>
           </Link>
         </nav>
       </SheetContent>
