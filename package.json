@@ -1,7 +1,0 @@
-{
-  "scripts": {
-    // ... other scripts
-    "build": "next build",
-    "postbuild": "next-sitemap"
-  }
-}
